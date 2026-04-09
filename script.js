@@ -52,7 +52,7 @@ addBookmarkButtonForm.addEventListener('click', (e) => {
     } catch {
         alert('Invalid url');
     }
-    bookmarks.push(({ 'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value }));
+    bookmarks.push({ 'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value });
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     bookmarkName.value = '';
     url.value = '';
