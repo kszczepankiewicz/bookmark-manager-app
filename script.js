@@ -55,17 +55,20 @@ const displayOrHideCategory = () => displayOrCloseForm();
 
 const generateCategoryList = (bookmarks) => categoryList.innerHTML = bookmarks.map(({ name, category, url }) => `<input type='radio' id='${name}' value='${name}' name='${category}'><label for='${name}'><a href='${url}'>${name}</a></label>`).join('\n');
 
-viewCategoryButton.addEventListener('click', (e) => {
-    mainSection.classList.toggle('hidden');
-    bookmarkListSection.classList.toggle('hidden');
+const viewCategory = () => {
     const bookmarks = getBookmarks().filter(b => b.category === categoryDropdown.value);
     if (!bookmarks.length) {
         categoryList.innerHTML = `<p>No Bookmarks Found</p>`;
         return;
     }
     generateCategoryList(bookmarks);
+}
 
-})
+viewCategoryButton.addEventListener('click', (e) => {
+    mainSection.classList.toggle('hidden');
+    bookmarkListSection.classList.toggle('hidden');
+    viewCategory();
+});
 
 closeListButton.addEventListener('click', (e) => {
     mainSection.classList.toggle('hidden');
@@ -79,8 +82,9 @@ deleteBookmarkButton.addEventListener('click', (e) => {
         return;
     }
     const bookmarks = getBookmarks();
-    let index = bookmarks.findIndex(b => b.name === selectedInput.id);
-    bookmarks.spice(index, 1);
+    let index = bookmarks.findIndex(({ name, category }) => name === selectedInput.id && category === categoryDropdown.value);
+    bookmarks.splice(index, 1);
+    debugger
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    generateCategoryList(bookmarks);
+    viewCategory();
 })
