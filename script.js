@@ -44,6 +44,11 @@ closeFormButton.addEventListener('click', (e) => {
 
 addBookmarkButtonForm.addEventListener('click', (e) => {
     const bookmarks = getBookmarks();
+    try {
+        new URL(url.value);
+    } catch {
+        alert('Invalid url');
+    }
     bookmarks.push(({ 'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value }));
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     bookmarkName.value = '';
