@@ -1,5 +1,7 @@
 const mainSection = document.getElementById('main-section');
 const formSection = document.getElementById('form-section');
+const bookmarkListSection = document.querySelector('#bookmark-list-section');
+
 const addBookmarkButton = document.getElementById('add-bookmark-button');
 const deleteBookmarkButton = document.getElementById('delete-bookmark-button');
 const addBookmarkButtonForm = document.getElementById('add-bookmark-button-form');
@@ -12,7 +14,6 @@ const categoryName = document.querySelectorAll('.category-name');
 const categoryList = document.querySelector('#category-list');
 const bookmarkName = document.querySelector('#name');
 const url = document.querySelector('#url');
-const bookmarkListSection = document.querySelector('#bookmark-list-section');
 
 const getBookmarks = () => {
     if (localStorage.getItem('bookmarks') === null) return []
@@ -28,10 +29,12 @@ const getBookmarks = () => {
     return bookmarks
 }
 
-const displayOrCloseForm = () => {
-    mainSection.classList.toggle('hidden');
-    formSection.classList.toggle('hidden');
+const showSection = section => {
+    [mainSection, formSection, bookmarkListSection].forEach(s => s.classList.add('hidden'));
+    section.classList.remove('hidden');
 }
+
+const displayOrCloseForm = () => showSection(mainSection.classList.contains('hidden') ? mainSection : formSection);
 
 addBookmarkButton.addEventListener('click', (e) => {
     categoryName.forEach(el => el.innerText = categoryDropdown.value);
@@ -70,15 +73,11 @@ const viewCategory = () => {
 }
 
 viewCategoryButton.addEventListener('click', (e) => {
-    mainSection.classList.toggle('hidden');
-    bookmarkListSection.classList.toggle('hidden');
+    showSection(bookmarkListSection);
     viewCategory();
 });
 
-closeListButton.addEventListener('click', (e) => {
-    mainSection.classList.toggle('hidden');
-    bookmarkListSection.classList.toggle('hidden');
-})
+closeListButton.addEventListener('click', (e) => showSection(mainSection))
 
 deleteBookmarkButton.addEventListener('click', (e) => {
     const selectedInput = document.querySelector('input[type="radio"]:checked');
