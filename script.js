@@ -58,7 +58,7 @@ addBookmarkButtonForm.addEventListener('click', (e) => {
 
 const displayOrHideCategory = () => displayOrCloseForm();
 
-const generateCategoryList = (bookmarks) => categoryList.innerHTML = bookmarks.map(({ name, category, url }) => `<input type='radio' id='${name}' value='${name}' name='${category}'><label for='${name}'><a href='${url}'>${name}</a></label>`).join('\n');
+const generateCategoryList = (bookmarks) => bookmarks.map(({ name, category, url }) => `<input type='radio' id='${name}' value='${name}' name='${category}'><label for='${name}'><a href='${url}'>${name}</a></label>`).join('\n');
 
 const viewCategory = () => {
     const bookmarks = getBookmarks().filter(b => b.category === categoryDropdown.value);
@@ -66,7 +66,7 @@ const viewCategory = () => {
         categoryList.innerHTML = `<p>No Bookmarks Found</p>`;
         return;
     }
-    generateCategoryList(bookmarks);
+    categoryList.innerHTML = generateCategoryList(bookmarks);
 }
 
 viewCategoryButton.addEventListener('click', (e) => {
