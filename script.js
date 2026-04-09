@@ -47,9 +47,14 @@ closeFormButton.addEventListener('click', (e) => {
 
 addBookmarkButtonForm.addEventListener('click', (e) => {
     const bookmarks = getBookmarks();
+    let parsed
     try {
-        new URL(url.value);
+        parsed = new URL(url.value);
     } catch {
+        alert('Invalid url');
+        // return; fcc tests fail
+    }
+    if (!/^https?:.+/i.test(parsed)) {
         alert('Invalid url');
         // return; fcc tests fail
     }
