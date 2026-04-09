@@ -54,7 +54,7 @@ addBookmarkButtonForm.addEventListener('click', (e) => {
         alert('Invalid url');
         // return; fcc tests fail
     }
-    if (!/^https?:.+/i.test(parsed)) {
+    if (!/^https?:/i.test(parsed.protocol)) {
         alert('Invalid url');
         // return; fcc tests fail
     }
