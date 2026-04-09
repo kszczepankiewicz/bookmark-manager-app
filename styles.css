@@ -40,7 +40,7 @@ label {
 
 #dropdown,
 #buttons,
-form div {
+form>div {
     padding: 30px;
     display: flex;
     justify-content: center;
