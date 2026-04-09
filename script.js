@@ -88,6 +88,7 @@ deleteBookmarkButton.addEventListener('click', (e) => {
     }
     const bookmarks = getBookmarks();
     let index = bookmarks.findIndex(({ name, category }) => name === selectedInput.id && category === categoryDropdown.value);
+    if (index === -1) return;
     bookmarks.splice(index, 1);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     viewCategory();
