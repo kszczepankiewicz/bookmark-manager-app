@@ -53,6 +53,8 @@ addBookmarkButtonForm.addEventListener('click', (e) => {
 
 const displayOrHideCategory = () => displayOrCloseForm();
 
+const generateCategoryList = (bookmarks) => categoryList.innerHTML = bookmarks.map(({ name, category, url }) => `<input type='radio' id='${name}' value='${name}' name='${category}'><label for='${name}'><a href='${url}'>${name}</a></label>`).join('\n');
+
 viewCategoryButton.addEventListener('click', (e) => {
     mainSection.classList.toggle('hidden');
     bookmarkListSection.classList.toggle('hidden');
@@ -61,7 +63,7 @@ viewCategoryButton.addEventListener('click', (e) => {
         categoryList.innerHTML = `<p>No Bookmarks Found</p>`;
         return;
     }
-    categoryList.innerHTML = bookmarks.map(({ name, category, url }) => `<input type='radio' id='${name}' value='${name}' name='${category}'><label for='${name}'><a href='${url}'>${name}</a></label>`).join('\n');
+    generateCategoryList(bookmarks);
 
 })
 
@@ -76,16 +78,9 @@ deleteBookmarkButton.addEventListener('click', (e) => {
         alert(`No Bookmarks Found`);
         return;
     }
-    // debugger 
     const bookmarks = getBookmarks();
-    let index;
-    // bookmarks.forEach((b, i) => {
-    //   if (b.name === selectedInput.id) {
-    //     index = i;
-    //     break;
-    //   }
-    // })
-
-    // bookmarks.push(({'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value}));
+    let index = bookmarks.findIndex(b => b.name === selectedInput.id);
+    bookmarks.spice(index, 1);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    generateCategoryList(bookmarks);
 })
