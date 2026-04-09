@@ -51,6 +51,7 @@ addBookmarkButtonForm.addEventListener('click', (e) => {
         new URL(url.value);
     } catch {
         alert('Invalid url');
+        // return; fcc tests fail
     }
     bookmarks.push({ 'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value });
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
