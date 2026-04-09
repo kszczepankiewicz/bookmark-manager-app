@@ -71,13 +71,20 @@ closeListButton.addEventListener('click', (e) => {
 })
 
 deleteBookmarkButton.addEventListener('click', (e) => {
-    const inputBookmarks = document.querySelector('[type="radio"]');
-    const bookmarks = getBookmarks();
-    const selected = Array.from(inputBookmarks).find(b => b.checked)
-    if (!selected) {
-        categoryList.innerHTML = `<p>No Bookmarks Found</p>`;
+    const selectedInput = document.querySelector('input[type="radio"]:checked');
+    if (!selectedInput) {
+        alert(`No Bookmarks Found`);
         return;
     }
+    // debugger 
+    const bookmarks = getBookmarks();
+    let index;
+    // bookmarks.forEach((b, i) => {
+    //   if (b.name === selectedInput.id) {
+    //     index = i;
+    //     break;
+    //   }
+    // })
 
     // bookmarks.push(({'name': bookmarkName.value, 'category': categoryDropdown.value, 'url': url.value}));
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
