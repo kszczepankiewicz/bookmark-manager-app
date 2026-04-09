@@ -8,7 +8,7 @@ const closeListButton = document.getElementById('close-list-button');
 const viewCategoryButton = document.getElementById('view-category-button');
 
 const categoryDropdown = document.getElementById('category-dropdown');
-const categoryName = document.querySelector('.category-name');
+const categoryName = document.querySelectorAll('.category-name');
 const categoryList = document.querySelector('#category-list');
 const bookmarkName = document.querySelector('#name');
 const url = document.querySelector('#url');
@@ -34,7 +34,7 @@ const displayOrCloseForm = () => {
 }
 
 addBookmarkButton.addEventListener('click', (e) => {
-    categoryName.innerText = categoryDropdown.value;
+    categoryName.forEach(el => el.innerText = categoryDropdown.value);
     displayOrCloseForm();
 })
 
